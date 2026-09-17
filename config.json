@@ -1,0 +1,16 @@
+{
+  "items": [
+    {
+      "id": "comfy_galaxy_a17",
+      "name": "Samsung Galaxy A17 8/256Gb Gray (Comfy)",
+      "type": "comfy_product",
+      "url": "https://comfy.ua/ua/smartfon-samsung-galaxy-a17-8-256gb-gray-sm-a175fzaeeuc.html"
+    },
+    {
+      "id": "auto_ria_bolt_ev_search",
+      "name": "Chevrolet Bolt EV — пошук на AUTO.RIA",
+      "type": "auto_ria_search",
+      "url": "https://auto.ria.com/uk/search/?abroad=0&customs_cleared=1&all%5B0%5D.any%5B0%5D.brand=13&all%5B0%5D.any%5B0%5D.any%5B0%5D.model=51091&query=chevrolet+bolt+ev"
+    }
+  ]
+}
