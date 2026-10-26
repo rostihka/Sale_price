@@ -1,0 +1,39 @@
+name: Price Monitor
+
+on:
+  schedule:
+    # 08:00 UTC = 10:00 (зима) / 11:00 (літо) за Києвом. Зміни за потреби.
+    - cron: "0 8 * * *"
+  workflow_dispatch: {}   # дозволяє запустити вручну кнопкою "Run workflow"
+
+permissions:
+  contents: write   # потрібно, щоб коммітити оновлений state.json назад у репозиторій
+
+jobs:
+  check-prices:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run price monitor
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python monitor.py
+
+      - name: Commit updated state.json
+        run: |
+          git config user.name "price-monitor-bot"
+          git config user.email "price-monitor-bot@users.noreply.github.com"
+          git add state.json
+          git diff --staged --quiet || git commit -m "Update price state [skip ci]"
+          git push
